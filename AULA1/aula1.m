@@ -104,8 +104,5 @@ ylabel('Ampliturde Normalizada')
 title('Série temporal da média móvel uma gaita blues')
 
 %%%%%%%% Cria o reticulado
-grid minor
-   
-    
-    
+grid minor 
     

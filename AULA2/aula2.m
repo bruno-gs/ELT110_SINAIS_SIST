@@ -1,5 +1,5 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% AULA 1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%]
+%% AULA 2
 %% Elaborar um código que:
 %% 1. leia um arquivo de aúdio - tipo wav
 %% 2. mostrar em um gráfico o sinal lido
@@ -7,40 +7,39 @@
 %% máximo, min, desvio padrão, média
 %% 4. processar o sinal --> aplicar algum algorimo
 %% 5. visualizar o resultado do processamento
+%%
 %% AUTOR: Fritz
-%% DATA: 11/08/2021
+%% DATA: 18/08/2021
 %%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 1 - Boas práticas
 %% 
-    display('Executando Boas Práticas...');
-    clear all;              % Limpa todas as variáveis
-    close all;              % fecha todas as figuras
-    clc;                    % limpa a tela
-    display('Boas Práticas executadas!!');
-    
+display('Executando Boas Práticas...');
+clear all;              % Limpa todas as variáveis
+close all;              % fecha todas as figuras
+clc;                    % limpa a tela
+display('Boas Práticas executadas!!');
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 2 - Entrada de dados
 %%
 %%  Leitura dos dados
 %%  Extrai as informações
 
+display('Entrada de dados...');
+info = audioinfo ('Gaita_Blues.wav');     %Informações do arquivo de audio
+[gk,fs] = audioread('Gaita_Blues.wav');   %Lendo o arquivo de aúdio
+
+% gk -> valores do sinal de aúdio
+% fs -> taxa de amostragem em Hz
+% info -> informações do arquivo
 
 
-    display('Entrada de dados...');
-    info = audioinfo ('Gaita_Blues.wav');     %Informações do arquivo de audio
-    [gk,fs] = audioread('Gaita_Blues.wav');   %Lendo o arquivo de aúdio
-    
-    % gk -> valores do sinal de aúdio
-    % fs -> taxa de amostragem em Hz
-    % info -> informações do arquivo
-    
-    
 %%%%%%%% Ouvir o som no computador
 
-    sound(gk,fs)
-    display('Etapa 2 finalizada!!');
+sound(gk,fs)
+display('Etapa 2 finalizada!!');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 3 - Análise do sinal de aúdiio
@@ -88,8 +87,8 @@ N   = 100;
 
 for n = 1: (Amostras - N)
 %%%%%%%% saída do filtro média móvel    
-    yk(n) = mean(gk(n:n+N));
-    
+yk(n) = mean(gk(n:n+N));
+
 end
 
 %% Cria a figura
@@ -105,4 +104,3 @@ title('Série temporal da média móvel uma gaita blues')
 
 %%%%%%%% Cria o reticulado
 grid minor 
-    

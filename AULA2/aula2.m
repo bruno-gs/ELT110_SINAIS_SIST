@@ -1,4 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% AULA 2
 %% Analogia de vetores e sinais
 %%
@@ -58,14 +58,12 @@ Nc = int(Ap*cos(n*t), to, to+Tp,t) + int(An*cos(n * t),t,to+Tp,to+T);
 Dc = int(cos^2(n * t), to, to+Tp,t);
 
 %% Definindo valores de n
-N = 10; %% N de sinais que desejamos decompor
-n = [1:1,N]; % vlaores de n para os sinais de ref -- vetor sequencial
-freq = n*f; % vetor frequencia
+N = 10;             %% N de sinais que desejamos decompor
+n = [1:1,N];        % valores de n para os sinais de ref -- vetor sequencial
+freq = n*f;         % vetor frequencia
 %% calculo cn numerico
 
 cn = eval(Nc/Dc)
-
-figure(1)
 
 stem(freq, cn);
 title('Espectro de amplitude')
@@ -90,6 +88,8 @@ for n = 1:N
 end
 
 gt_sintetizado = aux; %sinal sintetizado
+
+figure(1)
 
 plot(tempo, gt_sintetizado);
 title('Sinal sintetizado')

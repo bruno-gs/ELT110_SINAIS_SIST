@@ -1,12 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%]
 %% AULA 2
-%% Elaborar um código que:
-%% 1. leia um arquivo de aúdio - tipo wav
-%% 2. mostrar em um gráfico o sinal lido
-%% 3. explorar as carcterísticas do sinal:
-%% máximo, min, desvio padrão, média
-%% 4. processar o sinal --> aplicar algum algorimo
-%% 5. visualizar o resultado do processamento
+%% Analogia de vetores e sinais
 %%
 %% AUTOR: Fritz
 %% DATA: 18/08/2021
@@ -14,93 +8,90 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 1 - Boas práticas
-%% 
+%% LIMPEZA
 display('Executando Boas Práticas...');
 clear all;              % Limpa todas as variáveis
 close all;              % fecha todas as figuras
 clc;                    % limpa a tela
 display('Boas Práticas executadas!!');
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 2 - Entrada de dados
-%%
-%%  Leitura dos dados
-%%  Extrai as informações
-
-display('Entrada de dados...');
-info = audioinfo ('Gaita_Blues.wav');     %Informações do arquivo de audio
-[gk,fs] = audioread('Gaita_Blues.wav');   %Lendo o arquivo de aúdio
-
-% gk -> valores do sinal de aúdio
-% fs -> taxa de amostragem em Hz
-% info -> informações do arquivo
-
-
-%%%%%%%% Ouvir o som no computador
-
-sound(gk,fs)
-display('Etapa 2 finalizada!!');
+% Carregar bibliotecas
+pkg load symbolic; %Biblioteca simbólica
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 3 - Análise do sinal de aúdiio
-%%
-%% Explorar as carcterísticas do sinal:
-%% máximo, min, desvio padrão, média
+%% 2 - Descrever a onda quadrada - g(t)
 %%
 
-g_max   = max(gk);
-g_min   = min(gk);
-g_medio = mean(gk);
-g_std   = sqrt(var(gk));
+Ap      = +1;        % define o nivel positivo para onda quadrada
+An      = -1;        % define o nivel negativo para onda quadrada
 
-%%%%% Graficamente o sinal
+to      = -pi/2;        % Ponto inicial de g(t)
+Tp      =  pi;           %tempo positivo g(t)
+Tn      =  pi;           %tempo negativo g(t)
 
-Amostras = info.TotalSamples
-Duracao  = info.Duration
+%% Valores calculados
 
-%% Cria o vetor tempo
-tempo = linspace(0,Duracao,Amostras)
+T       = Tp + Tn;      %periodo de g(t)
+W       = 2*pi/T;       % frequencia angular
+f       = 1/T;          % frequencia em hertz
 
-%% Cria a figura
+%% Definindo valores de n
+N = 10; %% N de sinais que desejamos decompor
+n = [1:1,N]; % vlaores de n para os sinais de ref
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 3 - Determinando C1
+%%
+%% c1 = Nc/Dc
+%%
+%% Nc = int_T g(t) cos(t) det
+%% Dc = int_T cos²(t) dt
+
+syms n t          % informando ao Octave que a variavel 't' é simbólica e não numerica
+
+%% Calculando numerador (Função, extremo inf, extremo exterior, variavel de integração)
+
+Nc = int(Ap*cos(n*t), to, to+Tp,t) + int(An*cos(n * t),t,to+Tp,to+T);
+
+%% Calculando denominador (Função, extremo inf, extremo exterior, variavel de integração)
+
+Dc = int(cos^2(n * t), to, to+Tp,t);
+
+%% Definindo valores de n
+N = 10; %% N de sinais que desejamos decompor
+n = [1:1,N]; % vlaores de n para os sinais de ref -- vetor sequencial
+freq = n*f; % vetor frequencia
+%% calculo cn numerico
+
+cn = eval(Nc/Dc)
+
 figure(1)
 
-%% Cria o gráfico de gk em função do tempo
-plot(tempo,gk, 'k-.')
+stem(freq, cn);
+title('Espectro de amplitude')
+ylabel('Amplitude')
+xlabel('Frequencia em Hz')
 
-%%Identifica os eixos
-xlabel('Tempo em segundos')
-ylabel('Ampliturde Normalizada')
-title('Série temporal de uma gaita blues')
+% Analisado que com aumento da frequencia há uma diminuição na amplitude
+% Ou seja, erro tendendo a 0
 
-%%%%%%%% Cria o reticulado
-grid minor
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% 4 - Procesamento de sinais
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 4 - sintese
 %%
-%% Média móvel de N amostras
-%%
+M       = 1000 ; %numeor de pontos em um periodo
+tempo = linspace(0,T,M); %vetor tempo
+aux = 0; % valor inicial da somatoria
+for n = 1:N
 
-%%%%%%%% N amostras do média móvel
+    %%% somatoria
 
-N   = 100;
-
-for n = 1: (Amostras - N)
-%%%%%%%% saída do filtro média móvel    
-yk(n) = mean(gk(n:n+N));
-
+    aux = aux + cn(n*cos(n*tempo));
 end
 
-%% Cria a figura
-figure(2)
+gt_sintetizado = aux; %sinal sintetizado
 
-%% Cria o gráfico de gk em função do tempo
-plot(yk, 'k-.')
-
-%%Identifica os eixos
+plot(tempo, gt_sintetizado);
+title('Sinal sintetizado')
+ylabel('Amplitude')
 xlabel('Tempo em segundos')
-ylabel('Ampliturde Normalizada')
-title('Série temporal da média móvel uma gaita blues')
-
-%%%%%%%% Cria o reticulado
-grid minor 

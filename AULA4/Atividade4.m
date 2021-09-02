@@ -92,7 +92,7 @@ DnNum = eval(Dn);
 %%% Identifiquei NaN quando n = 0 ==> D0 ==> valor médio
 %%
 %%% Preciso calcular o valor médio para poder continuar...
-ValorMedioNum = eval(ValorMedio);                % subsituição dos valores numéricos
+ValorMedioNum = eval(ValorMedio);           % subsituição dos valores numéricos
 
 %%% Substituindo o NaN -- corrige o erro observado na posição 11
 DnNum(N+1) = ValorMedioNum;
@@ -154,7 +154,7 @@ AL = 0.0;               % nível baixo do sinal
 %% fazendo novamente a substituição, agr com os valores adotados nas linhas de cima
 P1w           = eval(Dn);   
 ValorMedioNum = eval(ValorMedio);       % subsituição dos novos valores numéricos para o valor médio
-P1w(N+1)      = ValorMedioNum           % colocando valor medio no valor do meio (NaN)
+P1w(N+1)      = ValorMedioNum;          % colocando valor medio no valor do meio (NaN)
 
 %% Para o pulso P2 que forma a onda
 
@@ -167,7 +167,7 @@ AL = 0.0;               % nível baixo do sinal
 %% fazendo novamente a substituição, agr com os valores adotados nas linhas de cima
 P2w           = eval(Dn);   
 ValorMedioNum = eval(ValorMedio);       % subsituição dos novos valores numéricos para o valor médio
-P2w(N+1)      = ValorMedioNum           % colocando valor medio no valor do meio (NaN)
+P2w(N+1)      = ValorMedioNum;          % colocando valor medio no valor do meio (NaN)
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -191,22 +191,31 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 9 - Visualizando
 %% 
-%%  analisar o sinal sintetizado
+%%  Analise do sinal gerado na parte 1 da atv 4 -- Analisando P1, P2 e g(t) gerados
 %%
 
 
 figure(3)
 
-stem(frequencia,DnNum,'linewidth', 3)   % plot(x,y,azul com linha cheia)
-xlabel('Frequência em Hz')              % eixo x
-ylabel('Amplitude em volts')            % eixo y
-title('Análise de Fourier')             % título
+stem(frequencia,P1w,'linewidth', 3)                   % plot(x,y,azul com linha cheia)
+xlabel('Frequência em Hz')                             % eixo x
+ylabel('Amplitude em volts')                          % eixo y
+title('Análise de Fourier - P1')                           % título
 grid
 
 figure(4)
 
-plot(tempo,pt,'b-','linewidth', 3)      % plot(x,y,azul com linha cheia)
-xlabel('Tempo em segundos')             % eixo x
-ylabel('Amplitude em volts')            % eixo y
-title('Sintese de Fourier')             % título
+stem(frequencia,P2w,'linewidth', 3)                   % plot(x,y,azul com linha cheia)
+xlabel('Frequência em Hz')                             % eixo x
+ylabel('Amplitude em volts')                          % eixo y
+title('Análise de Fourier - P2')                           % título
+grid
+
+
+figure(5)
+
+plot(tempo,gt,'b-','linewidth', 3)                    % plot(x,y,azul com linha cheia)
+xlabel('Tempo em segundos')                           % eixo x
+ylabel('Amplitude em volts')                          % eixo y
+title('Sintese de Fourier - g(t)')                           % título
 grid

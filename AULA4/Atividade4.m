@@ -5,13 +5,13 @@
 %% Constantes; carregar bibliotecas;...
 %%
 
-clear all;          % limpa as variáveis
-close all;          % fecha todas as figuras ativas
-clc;                % limpa a tela visível
+clear all;                  % limpa as variáveis
+close all;                  % fecha todas as figuras ativas
+clc;                        % limpa a tela visível
 
 %%%%% Bibliotecas para o Octave - instalado
 
-pkg load symbolic   % tratar as integrais simbólicas
+pkg load symbolic           % tratar as integrais simbólicas
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -62,11 +62,11 @@ ValorMedio = (int(AH*exp(0),t,-TH/2,TH/2) + int(AL*exp(0),t,TH/2,TH/2+TL))/To;
 %% Aqui começamos a declarar os valores dos simbolos adotados
 %% Isso é um boa prática para modularizar o código
 
-To = 10;                % período do sinal
-TH = 0.5;               % tempo de nível alto do sinal
-TL = To - TH;           % tempo de nível baixo do sinal
-AH = 1.0;               % nível alto do sinal
-AL = 0.0;               % nível baixo do sinal
+To = 10;                          % período do sinal
+TH = 0.5;                         % tempo de nível alto do sinal
+TL = To - TH;                     % tempo de nível baixo do sinal
+AH = 1.0;                         % nível alto do sinal
+AL = 0.0;                         % nível baixo do sinal
 
 %%%%% Determinar parâmetros
 
@@ -103,9 +103,9 @@ DnNum(N+1) = ValorMedioNum;
 %%  p(t) =sum_{n = -N --> N} [ Dn e^(j n wo tempo) ]
 %%
 
-M      = 1000;               % resolução temporal
-tempo  = linspace(-To,To,M); % vetor tempo
-pt     = ValorMedioNum;      % inicio a variável com o valor médio
+M      = 1000;                          % resolução temporal
+tempo  = linspace(-To,To,M);            % vetor tempo
+pt     = ValorMedioNum;                 % inicio a variável com o valor médio
 
 for k = 1 : 2*N+1
   
@@ -143,8 +143,8 @@ grid
 %% 
 %% To = 10s [ja definido] - TH = 0.5s - AH = 1 - AL = 0
 
-%% Para o pulso P1 que forma a onda
 
+%% Para o pulso P1 que forma a ond
 TH = 4;                 % tempo de nível alto do sinal
 TL = To - TH;           % tempo de nível baixo do sinal
 AH = 1.0;               % nível alto do sinal
@@ -156,12 +156,12 @@ P1w           = eval(Dn);
 ValorMedioNum = eval(ValorMedio);       % subsituição dos novos valores numéricos para o valor médio
 P1w(N+1)      = ValorMedioNum;          % colocando valor medio no valor do meio (NaN)
 
-%% Para o pulso P2 que forma a onda
 
-TH = 2;                 % tempo de nível alto do sinal
-TL = To - TH;           % tempo de nível baixo do sinal
-AH = 1.0;               % nível alto do sinal
-AL = 0.0;               % nível baixo do sinal
+%% Para o pulso P2 que forma a onda
+TH = 2;                                 % tempo de nível alto do sinal
+TL = To - TH;                           % tempo de nível baixo do sinal
+AH = 1.0;                               % nível alto do sinal
+AL = 0.0;                               % nível baixo do sinal
 
 
 %% fazendo novamente a substituição, agr com os valores adotados nas linhas de cima
@@ -197,25 +197,25 @@ end
 
 figure(3)
 
-stem(frequencia,P1w,'linewidth', 3)                   % plot(x,y,azul com linha cheia)
-xlabel('Frequência em Hz')                             % eixo x
-ylabel('Amplitude em volts')                          % eixo y
-title('Análise de Fourier - P1')                           % título
+stem(frequencia,P1w,'linewidth', 3)                     % plot(x,y,azul com linha cheia)
+xlabel('Frequência em Hz')                              % eixo x
+ylabel('Amplitude em volts')                            % eixo y
+title('Análise de Fourier - P1')                        % título
 grid
 
 figure(4)
 
-stem(frequencia,P2w,'linewidth', 3)                   % plot(x,y,azul com linha cheia)
-xlabel('Frequência em Hz')                             % eixo x
-ylabel('Amplitude em volts')                          % eixo y
-title('Análise de Fourier - P2')                           % título
+stem(frequencia,P2w,'linewidth', 3)                     % plot(x,y,azul com linha cheia)
+xlabel('Frequência em Hz')                              % eixo x
+ylabel('Amplitude em volts')                            % eixo y
+title('Análise de Fourier - P2')                        % título
 grid
 
 
 figure(5)
 
-plot(tempo,gt,'b-','linewidth', 3)                    % plot(x,y,azul com linha cheia)
-xlabel('Tempo em segundos')                           % eixo x
-ylabel('Amplitude em volts')                          % eixo y
-title('Sintese de Fourier - g(t)')                           % título
+plot(tempo,gt,'b-','linewidth', 3)                      % plot(x,y,azul com linha cheia)
+xlabel('Tempo em segundos')                             % eixo x
+ylabel('Amplitude em volts')                            % eixo y
+title('Sintese de Fourier - g(t)')                      % título
 grid

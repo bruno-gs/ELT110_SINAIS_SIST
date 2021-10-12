@@ -44,7 +44,7 @@ pkg load signal;
 
 %%% Reduzindo a amostragem em 10 vezes
 
-Fr = 1;
+Fr = 10;
 
 %%% Nova amostragem
 
@@ -161,13 +161,45 @@ impz(Nzfpb,Dzfpb,ceil(Npontos),fs);
 %%% Aplicar o comando filter 
 %%          -- filtrar a gaita com esse z de cima
 %% pensar em formas formas de comparar 
+
 %% https://www.mathworks.com/help/matlab/ref/filter.html
- 
+%% comando filter segundo o site
+%% y = filter(b,a,x) filters the input data x using a rational transfer function defined by the 
+                                        %% numerator and denominator coefficients b and a.
+
+%% b = Nzfpb
+%% a = Dzfpb
+%% Y = x            %% entrada da gaita
+
+
 y = filter(Nzfpb, Dzfpb, Y);
 
-Fourier_Grafico (Y, fs, Nf);
+Np   = length(Y);
+ws   = 2*pi*fs;
+w    = linspace(-ws/2,+ws/2, Np);
+freq = w/(2*pi);
 
-hold; % cria uma persistência para sobrepor os gráficos
+%%% Visualizando os resultados
 
-%%% Resposta impulsiva do sistema no domínio discreto
-plot(wc/2*fs,y);
+figure(4)
+
+subplot(2,1,1)
+plot(freq,Y)
+title('Gaita')
+xlabel('Frequencia em Hz');
+ylabel('Magnitude');
+
+subplot(2,1,2)
+plot(freq,y)
+title('Gaita filtrada')
+xlabel('Frequencia em Hz');
+ylabel('Magnitude');
+
+%%%%%%%%%%%%%%%
+%% Outra tentativa -- plote em conjunto e analisar alguma diferenca
+%% plot(freq,Y);
+%% hold on
+%% plot(freq,y)
+%% title('Gaita e Gaita filtrada')
+%% xlabel('Frequencia em Hz');
+%% ylabel('Magnitude');

@@ -81,7 +81,7 @@ figure(2)
 
 freqz(Nz7,Dz7)
 hold on
-freqz(Nz15,Dz15);
+freqz(Nz15,Dz15)
 
 %%% Aprimora a aparência do gráfico
 
@@ -125,7 +125,7 @@ Ganho_FPB = Hw(w,T);  % ganho do filtro na faixa de investigação
 
 %%% Visualizar o gráfico
 
-figure(4)
+figure(5)
 
 subplot(2,1,1)
 plot(w,20*log10(abs(Ganho_FPB)));

@@ -222,6 +222,8 @@ Np = length(Gw);
 
 f = linspace(-fs/2,fs/2,Np);
 
+Ganho_FPB = Hw(2*pi*f,T);  % ganho do filtro na faixa de investigação
+
 figure(6)
 
 subplot(3,1,1)

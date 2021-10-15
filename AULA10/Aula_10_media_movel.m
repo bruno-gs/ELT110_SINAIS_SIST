@@ -118,11 +118,11 @@ Hw = @(w,T) (1/3).*exp(-j*w*T).*(1+2*cos(w*T));
 
 %%% Supondo uma taxa de amostragemd e 1Hz => T = 1s
 
-T    = 1;             % taxa de amostragem
-fs   = 1/T;           % frequência de amostragem
-fmax = fs/2;          % frequência máxima
-f    = [0:0.01:fmax];    % faixa de frequência de análise
-w    = 2*pi*f;        % frequência angular
+T    = 1;               % taxa de amostragem
+fs   = 1/T;             % frequência de amostragem
+fmax = fs/2;            % frequência máxima
+f    = [0:0.01:fmax];   % faixa de frequência de análise
+w    = 2*pi*f;          % frequência angular
 
 Ganho_FPB = Hw(w,T);  % ganho do filtro na faixa de investigação
 
@@ -155,4 +155,54 @@ grid;
 set(findall(gcf,'Type','line'),'LineWidth',3);
 set(gca,'FontSize',14,'LineWidth',2);
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ENTRADA SENDO A GAITA_BLUES
 [gk, fs] = audioread ('Gaita_Blues.wav');
+
+T = 1/fs;
+
+% Filtrando com o FPB de 7 dias
+yk7 = filter(Nz7,Dz7,gk) 
+% Filtrando com o FPB de 15 dias
+yk15 = filter(Nz15,Dz15,gk) 
+
+%%% Visualizar o gráfico
+
+figure(5)
+
+subplot(3,1,1)
+plot(gk);
+xlabel('Frequencia');
+ylabel('Magnitude');
+title('Modulo do ganho do filtro');
+grid;
+
+%%% Aprimora a aparência do gráfico
+
+set(findall(gcf,'Type','line'),'LineWidth',3);
+set(gca,'FontSize',14,'LineWidth',2);
+
+
+subplot(3,1,2)
+plot(yk7);
+xlabel('Frequencia');
+ylabel('Magnitude');
+title('Fase do ganho do filtro');
+grid;
+
+%%% Aprimora a aparência do gráfico
+
+set(findall(gcf,'Type','line'),'LineWidth',3);
+set(gca,'FontSize',14,'LineWidth',2);
+
+subplot(3,1,3)
+plot(yk15);
+xlabel('Frequencia');
+ylabel('Magnitude');
+title('Fase do ganho do filtro');
+grid;
+
+%%% Aprimora a aparência do gráfico
+
+set(findall(gcf,'Type','line'),'LineWidth',3);
+set(gca,'FontSize',14,'LineWidth',2);

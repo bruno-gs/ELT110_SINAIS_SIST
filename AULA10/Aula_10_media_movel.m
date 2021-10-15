@@ -218,10 +218,15 @@ Gw      = fftshift(abs(fft(gk)));
 Yw7     = fftshift(abs(fft(yk7)));
 Yw15    = fftshift(abs(fft(yk15)));
 
+Np = length(Gw);
+
+f = linspace(-fs/2,fs/2,Np);
+
 figure(6)
 
 subplot(3,1,1)
-plot(Gw);
+plot(f, Gw/max(Gw)); hold;
+plot(f, abs(Ganho_FPB));
 xlabel('Frequencia');
 ylabel('Magnitude');
 title('Modulo do ganho do filtro');
@@ -234,7 +239,7 @@ set(gca,'FontSize',14,'LineWidth',2);
 
 
 subplot(3,1,2)
-plot(Yw7);
+plot(f, Yw7/max(Yw7));
 xlabel('Frequencia');
 ylabel('Magnitude');
 title('Fase do ganho do filtro');
@@ -246,7 +251,7 @@ set(findall(gcf,'Type','line'),'LineWidth',3);
 set(gca,'FontSize',14,'LineWidth',2);
 
 subplot(3,1,3)
-plot(Yw15);
+plot(f, Yw15/max(Yw15));
 xlabel('Frequencia');
 ylabel('Magnitude');
 title('Fase do ganho do filtro');

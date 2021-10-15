@@ -166,7 +166,10 @@ yk7 = filter(Nz7,Dz7,gk)
 % Filtrando com o FPB de 15 dias
 yk15 = filter(Nz15,Dz15,gk) 
 
-%%% Visualizar o gráfico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Visualizar o gráfico no domínio do tempo
+%% Plotando a figura da gaita e esse valor dela com os filtros
 
 figure(5)
 
@@ -206,3 +209,53 @@ grid;
 
 set(findall(gcf,'Type','line'),'LineWidth',3);
 set(gca,'FontSize',14,'LineWidth',2);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Visualizar o gráfico no domínio da frequencia
+%% Plotando a figura da gaita e esse valor dela com os filtros
+
+Gw      = fftshift(abs(fft(gk)));
+Yw7     = fftshift(abs(fft(yk7)));
+Yw15    = fftshift(abs(fft(yk15)));
+
+figure(6)
+
+subplot(3,1,1)
+plot(Gw);
+xlabel('Frequencia');
+ylabel('Magnitude');
+title('Modulo do ganho do filtro');
+grid;
+
+%%% Aprimora a aparência do gráfico
+
+set(findall(gcf,'Type','line'),'LineWidth',3);
+set(gca,'FontSize',14,'LineWidth',2);
+
+
+subplot(3,1,2)
+plot(Yw7);
+xlabel('Frequencia');
+ylabel('Magnitude');
+title('Fase do ganho do filtro');
+grid;
+
+%%% Aprimora a aparência do gráfico
+
+set(findall(gcf,'Type','line'),'LineWidth',3);
+set(gca,'FontSize',14,'LineWidth',2);
+
+subplot(3,1,3)
+plot(Yw15);
+xlabel('Frequencia');
+ylabel('Magnitude');
+title('Fase do ganho do filtro');
+grid;
+
+%%% Aprimora a aparência do gráfico
+
+set(findall(gcf,'Type','line'),'LineWidth',3);
+set(gca,'FontSize',14,'LineWidth',2);
+
+
+
